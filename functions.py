@@ -48,21 +48,43 @@ modelling_data = pd.merge(movies, ratings, on = "movieId")
 modelling_data.drop(columns= "timestamp", axis= 1, inplace= True)
 
 
-def recommender_system(userId, n, df, model):
-    #unique user
-    user_Id = userId
-    #N number of recommendations
-    N = n
-    #list of movies not rated by the user
-    to_recommend  = set(df["movieId"].unique()) - set(df[df["userId"] == user_Id]["movieId"].unique())
-    #getting predictions for movies to recommend
-    preds_to_user = [model.predict(user_Id, movieId) for  movieId in to_recommend]
-    #get top N recommendation
-    top_N_recommendations = sorted(preds_to_user, key=lambda x: x.est, reverse=True)[:N]
+# def recommender_system(userId, n, df, model):
+#     #unique user
+#     user_Id = userId
+#     #N number of recommendations
+#     N = n
+#     #list of movies not rated by the user
+#     to_recommend  = set(df["movieId"].unique()) - set(df[df["userId"] == user_Id]["movieId"].unique())
+#     #getting predictions for movies to recommend
+#     preds_to_user = [model.predict(user_Id, movieId) for  movieId in to_recommend]
+#     #get top N recommendation
+#     top_N_recommendations = sorted(preds_to_user, key=lambda x: x.est, reverse=True)[:N]
+#     # Display the top N recommendations
+#     for recommendation in top_N_recommendations:
+#         movie_info = modelling_data[modelling_data['movieId'] == recommendation.iid]
+#         if not movie_info.empty:
+#             title = movie_info['title'].values[0]
+#             genres = movie_info['genres'].values[0]
+#             print(f"MovieId: {recommendation.iid}, Title: {title}, Genres: {genres}, Estimated Rating: {recommendation.est}")
+            
+            
+            
+def recommender_system(user_id, n_recommendations, ratings_df, collaborative_model):
+    # List of movies not rated by the user
+    to_recommend = set(ratings_df["movieId"].unique()) - set(ratings_df[ratings_df["userId"] == user_id]["movieId"].unique())
+
+    # Getting predictions for movies to recommend
+    preds_to_user = [collaborative_model.predict(user_id, movie_id) for movie_id in to_recommend]
+
+    # Get top N recommendations
+    top_n_recommendations = sorted(preds_to_user, key=lambda x: x.est, reverse=True)[:n_recommendations]
+
     # Display the top N recommendations
-    for recommendation in top_N_recommendations:
+    for recommendation in top_n_recommendations:
         movie_info = modelling_data[modelling_data['movieId'] == recommendation.iid]
         if not movie_info.empty:
             title = movie_info['title'].values[0]
             genres = movie_info['genres'].values[0]
             print(f"MovieId: {recommendation.iid}, Title: {title}, Genres: {genres}, Estimated Rating: {recommendation.est}")
+        else:
+            print(f"MovieId: {recommendation.iid}, No information available, Estimated Rating: {recommendation.est}")
