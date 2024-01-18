@@ -11,6 +11,7 @@ modelling_data.drop(columns= "timestamp", axis= 1, inplace= True)
 
 
 def knn_recommender(user_id, knn_model, N):
+    user_id = input("enter number")
     # Get a list of all movie IDs in your dataset
     all_movie_ids = np.unique(movies['movieId'])
 
