@@ -38,9 +38,9 @@ The univariate analysis reveals that users generally provide positive ratings, w
 - Seasonal patterns or fluctuations may reveal interesting insights into user behavior.
 
 3. Modelling
-
+- Here we are building machine learning models that are good in recognizing patterns and have high prediction power
 4. Evaluation 
-
+- Metrics such as rmse and mae are used to evaluate and pick the best model
 5. Conclusion 
-
+- This entails our findings, conclusions, recommendations and next steps
 
