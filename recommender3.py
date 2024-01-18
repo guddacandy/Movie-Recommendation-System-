@@ -66,7 +66,7 @@ def knn_recommender(user_id, knn_model, N):
         predicted_ratings.sort(key=lambda x: x[1], reverse=True)
 
         #Get the top 5 movie recommendations
-        top_5_recommendations = predicted_ratings[:5]
+        top_5_recommendations = predicted_ratings[:N]
 
         for movie_id, predicted_rating in top_5_recommendations:
             # Check if the condition results in a non-empty DataFrame
