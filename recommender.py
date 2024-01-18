@@ -35,7 +35,7 @@ def recommender_system(userId, n, df, model):
 #neural networks recommender function
 def neural_recommender(user_id, n, df, svd_model, neural_network_model):
     # Get movies not rated by the user
-    to_recommend = set(df['movieId'].unique()) - set(df[df['userId'] == user_id]['movieId'].unique())
+    to_recommend = set(movies['movieId'].unique()) - set(movies[movies['userId'] == user_id]['movieId'].unique())
 
     # Get SVD predictions for movies to recommend
     svd_preds = [svd_model.predict(user_id, movie_id).est for movie_id in to_recommend]
