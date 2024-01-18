@@ -16,7 +16,6 @@ def knn_recommender(user_id, knn_model, N):
 
     # Create a list to store predicted ratings for unrated movies
     predicted_ratings = []
-
     # Predict ratings for the user on unrated movies
     for movie_id in all_movie_ids:
         # Check if the user has already rated the movie
